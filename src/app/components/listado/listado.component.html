@@ -1,0 +1,56 @@
+<p-breadcrumb class="p-menuitem-text">
+  <div class="layout-breadcrumb">
+    <div class="breadcrumb">
+      <div class="route-bar-breadcrumb">
+      </div>
+      <div class="notification">
+        👋 Buen dia User, hoy no hay notificacioes para ti
+      </div>
+    </div>
+  </div>
+</p-breadcrumb>
+
+<div class="layout-content">
+  <div class="p-col-12">
+    <div class="card card-w-title">
+      <h1>Preventas</h1>
+      <div class="p-col-12">
+        <p-table [value]="preventas">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>ID</th>
+                  <th>Nombre del Proyecto</th>
+                  <th>Cuenta analítica</th>
+                  <th>Cliente</th>
+                  <th>Cierre previsto</th>
+                  <th>Compañia</th>
+                  <th>Estatus</th>
+                  <th>Acciones</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-preventa let-index="rowIndex">
+              <tr>
+                  <td>{{ index + 1 }}</td>
+                  <td>{{preventa.nombreProyecto}}</td>
+                  <td>{{preventa.cuentaAnalitica}}</td>
+                  <td>{{preventa.cliente}}</td>
+                  <td>{{preventa.fechaCierre}}</td>
+                  <td>{{preventa.compania}}</td>
+                  <td><span [class]="'product-badge status-' + status[index].toLowerCase()">{{ status[index] }}</span></td>
+                  <td>
+                    <div class="p-grid">
+                      <div class="p-col-3">
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editarPreventa(preventa)"></button>
+                      </div>
+                      <div class="p-col-3">
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning p-mr-2" (click)="eliminarPreventa(preventa.id)"></button>
+                      </div>
+                    </div>
+                  </td>
+              </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>

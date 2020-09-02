@@ -1,0 +1,236 @@
+<p-breadcrumb class="p-menuitem-text">
+  <div class="layout-breadcrumb">
+    <div class="breadcrumb">
+      <div class="route-bar-breadcrumb">
+      </div>
+      <div class="notification">
+        👋 Hola usurio, excelente dia.
+      </div>
+    </div>
+  </div>
+</p-breadcrumb>
+
+<div class="layout-content">
+  <div class="p-col-12">
+    <div class="card card-w-title">
+      <h1>Presupuesto Preventa</h1>
+      <div class="p-col-12">
+
+        <form [formGroup]="preventaForm" (ngSubmit)="onSubmit()">
+
+          <div class="ui-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="nombreProyecto">Nombre del proyecto</label>
+              <input id="nombreProyecto" formControlName="nombreProyecto" type="text" pInputText>
+
+              <div *ngIf="submitted && field.nombreProyecto.errors">
+                <p-message *ngIf="field.nombreProyecto.errors.required" severity="error" text="Campo requerido"></p-message>
+                <p-message *ngIf="field.nombreProyecto.errors.email" severity="error" text="No se permiten caracteres especiales"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="cuentaAnalitica">Cuenta analítica</label>
+              <p-dropdown id="cuentaAnalitica" name="cuentaAnalitica" formControlName="cuentaAnalitica" [options]="bills" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.cuentaAnalitica.errors">
+                <p-message *ngIf="field.cuentaAnalitica.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="cliente">Cliente</label>
+              <p-dropdown id="cliente" [options]="clients" formControlName="cliente" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.cliente.errors">
+                <p-message *ngIf="field.cliente.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-col-12 p-md-4">
+              <label for="costo">Costo</label>
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon">$</span>
+                <input id="costo" type="number" formControlName="costo" pInputText>
+              </div>
+
+              <div *ngIf="submitted && field.costo.errors">
+                <p-message *ngIf="field.costo.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="fechaInicio">Fecha Inicio del Proyecto: </label>
+              <p-calendar id="fechaInicio" formControlName="fechaInicio" [showIcon]="true" inputId="icon"></p-calendar>
+
+              <div *ngIf="submitted && field.fechaInicio.errors">
+                <p-message *ngIf="field.fechaInicio.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="fechaFin">Fecha Fin del Proyecto:</label>
+              <p-calendar id="fechaFin" formControlName="fechaFin" [showIcon]="true" inputId="icon"></p-calendar>
+
+              <div *ngIf="submitted && field.fechaFin.errors">
+                <p-message *ngIf="field.fechaFin.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="fechaCierre">Cierre previsto</label>
+              <p-calendar id="fechaCierre" formControlName="fechaCierre" [showIcon]="false" inputId="icon"></p-calendar>
+
+              <div *ngIf="submitted && field.fechaCierre.errors">
+                <p-message *ngIf="field.fechaCierre.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="porcentaje">Porcentaje</label>
+              <div class="ui-inputgroup">
+                <input id="porcentaje" formControlName="porcentaje" type="number" pInputText>
+                <span class="ui-inputgroup-addon">%</span>
+              </div>
+
+              <div *ngIf="submitted && field.porcentaje.errors">
+                <p-message *ngIf="field.porcentaje.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="ingresos">Monto de ingresos</label>
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon">$</span>
+                <input id="ingresos" formControlName="ingresos" type="number" pInputText>
+              </div>
+
+              <div *ngIf="submitted && field.ingresos.errors">
+                <p-message *ngIf="field.ingresos.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="gerenteComercial">Gerente Comercial</label>
+              <p-dropdown id="gerenteComercial" [options]="managers" formControlName="gerenteComercial" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.gerenteComercial.errors">
+                <p-message *ngIf="field.gerenteComercial.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="comercial">Comercial</label>
+              <p-dropdown id="comercial" [options]="commercial" formControlName="comercial" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.comercial.errors">
+                <p-message *ngIf="field.comercial.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="equipoVenta">Equipo de Venta</label>
+              <p-dropdown id="equipoVenta" [options]="salesTeams" formControlName="equipoVenta" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.equipoVenta.errors">
+                <p-message *ngIf="field.equipoVenta.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="compania">Compañia</label>
+              <p-dropdown id="compania" [options]="companies" formControlName="compania" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.compania.errors">
+                <p-message *ngIf="field.compania.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="lineaNegocio">Línea de negocio*</label>
+              <p-dropdown id="lineaNegocio" [options]="businessLine" formControlName="lineaNegocio" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.lineaNegocio.errors">
+                <p-message *ngIf="field.lineaNegocio.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+              <label for="tipoServicio">Tipo de servicio*</label>
+              <p-dropdown id="tipoServicio" [options]="typeServices" formControlName="tipoServicio" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.tipoServicio.errors">
+                <p-message *ngIf="field.tipoServicio.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+              <label for="sede">Sede*</label>
+              <p-dropdown id="sede" [options]="campus" formControlName="sede" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.sede.errors">
+                <p-message *ngIf="field.sede.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+              <label for="etiquetaAnaliticas">Etiqueta Analítica</label>
+              <textarea id="etiquetaAnaliticas" formControlName="etiquetaAnaliticas" rows="5" cols="30" pInputTextarea></textarea>
+
+              <div *ngIf="submitted && field.etiquetaAnaliticas.errors">
+                <p-message *ngIf="field.etiquetaAnaliticas.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+              <label for="tipoMoneda">Tipo de moneda*</label>
+              <p-dropdown id="tipoMoneda" [options]="coinTypes" formControlName="tipoMoneda" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.tipoMoneda.errors">
+                <p-message *ngIf="field.tipoMoneda.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+              <label for="participacion">Participación</label>
+              <p-dropdown id="participacion" [options]="participations" formControlName="participacion" placeholder="Selecciona una opción" optionLabel="label" [showClear]="true"></p-dropdown>
+
+              <div *ngIf="submitted && field.participacion.errors">
+                <p-message *ngIf="field.participacion.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-12">
+              <label for="objetivo">Objetivo del proyecto</label>
+              <textarea id="objetivo" formControlName="objetivo" rows="5" cols="30" pInputTextarea></textarea>
+
+              <div *ngIf="submitted && field.objetivo.errors">
+                <p-message *ngIf="field.objetivo.errors.required" severity="error" text="Campo requerido"></p-message>
+              </div>
+            </div>
+
+          </div>
+
+          <div *ngIf="crear === true" class="p-lg-6 p-lg-offset-6 p-md-6 p-sm-12  p-sm-12 p-grid p-justify-end">
+            <button class="ui-button-success buttunBig marginRigth40 ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ng-star-inserted">
+              <span class="ui-button-icon-left ui-clickable pi pi-save"></span>
+              <span class="ui-button-text ui-clickable">Guardar</span>
+            </button>
+          </div>
+
+          <div *ngIf="actualiza === true" class="p-lg-6 p-lg-offset-6 p-md-6 p-sm-12  p-sm-12 p-grid p-justify-end">
+            <button class="ui-button-success buttunBig marginRigth40 ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ng-star-inserted">
+              <span class="ui-button-icon-left ui-clickable pi pi-save"></span>
+              <span class="ui-button-text ui-clickable" (click)="actualizar()">Guardar</span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast position="top-left"></p-toast>
